@@ -12,6 +12,13 @@
     (is (= "Q♥" (card-symbol (build-card :hearts 12))))
     (is (= "10♥" (card-symbol (build-card :hearts 10)))))
 
+  (testing "suit-symbol"
+    (is (= "♥" (suit-symbol :hearts)))
+    (is (= "♠" (suit-symbol :spades)))
+    (is (= "♦" (suit-symbol :diamonds)))
+    (is (= "♣" (suit-symbol :clubs)))
+    (is (= nil (suit-symbol :unknown))))
+
   (testing "suit contains 9 cards"
     (let [diamonds (build-suit :diamonds)]
       (is (= 9 (count diamonds)))))
