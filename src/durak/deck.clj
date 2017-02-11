@@ -33,3 +33,6 @@
 
 (defn build-deck []
   (reduce concat (map build-suit suits)))
+
+(defn deck-symbols [deck]
+  (map #(card-symbol %) deck))

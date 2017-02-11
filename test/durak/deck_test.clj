@@ -28,7 +28,7 @@
       (is (= 36 (count deck)))))
 
   (testing "deck to symbols"
-    (let [deck (set (map #(card-symbol %) (build-deck)))]
+    (let [deck (set (deck-symbols (build-deck)))]
       (is (= 36 (count deck)))
       (assert (contains? deck "6♥"))
       (assert (contains? deck "7♥"))
