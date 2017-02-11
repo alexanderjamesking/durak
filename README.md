@@ -2,6 +2,8 @@
 
 One day this will hopefully be a playable version of the Durak card game...
 
+[![Build Status](https://travis-ci.org/alexanderjamesking/durak.svg?branch=master)](https://travis-ci.org/alexanderjamesking/durak)
+
 
 ## Prerequisites
 
