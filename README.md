@@ -1,6 +1,7 @@
 # durak
 
-FIXME
+One day this will hopefully be a playable version of the Durak card game...
+
 
 ## Prerequisites
 
@@ -16,4 +17,4 @@ To start a web server for the application, run:
 
 ## License
 
-Copyright © 2017 FIXME
+Copyright © 2017 Alex King
