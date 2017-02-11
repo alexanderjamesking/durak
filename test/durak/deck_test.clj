@@ -1,5 +1,5 @@
 (ns durak.deck-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [deftest testing is]]
             [durak.deck :refer :all]))
 
 (deftest build-deck-of-cards
