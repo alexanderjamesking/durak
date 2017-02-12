@@ -21,7 +21,7 @@
     (is (= (- (count (deck/build-deck)) (* cards-per-player num-players)) (count (:deck dealt-cards))))))
 
 (deftest build-deck-of-cards
-  (testing "use the last card as the trump card"
+  (testing "use the last card in the altered deck as the trump card"
     (let [deck (take 12 (shuffle (deck/build-deck)))
           trump (first deck)
           altered-deck (move-trump-card-to-end deck)]
@@ -48,5 +48,3 @@
           dealt-cards (deal-cards deck players)]
       (verify-cards-remaining-count dealt-cards players)
       (verify-players-cards deck players dealt-cards))))
-
-

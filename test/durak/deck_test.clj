@@ -2,6 +2,11 @@
   (:require [clojure.test :refer [deftest testing is]]
             [durak.deck :refer :all]))
 
+(defn assert-contains-suit [deck suit]
+  (let [sym (suit-symbol suit)]
+    (doseq [x (conj (range 6 11) "J" "Q" "K" "A")]
+      (assert (contains? deck (str x sym))))))
+
 (deftest build-deck-of-cards
   (testing "build card"
     (let [card (build-card :hearts 12)]
@@ -30,42 +35,7 @@
   (testing "deck to symbols"
     (let [deck (set (deck-symbols (build-deck)))]
       (is (= 36 (count deck)))
-      (assert (contains? deck "6♥"))
-      (assert (contains? deck "7♥"))
-      (assert (contains? deck "8♥"))
-      (assert (contains? deck "9♥"))
-      (assert (contains? deck "10♥"))
-      (assert (contains? deck "J♥"))
-      (assert (contains? deck "Q♥"))
-      (assert (contains? deck "K♥"))
-      (assert (contains? deck "A♥"))
-
-      (assert (contains? deck "6♠"))
-      (assert (contains? deck "7♠"))
-      (assert (contains? deck "8♠"))
-      (assert (contains? deck "9♠"))
-      (assert (contains? deck "10♠"))
-      (assert (contains? deck "J♠"))
-      (assert (contains? deck "Q♠"))
-      (assert (contains? deck "K♠"))
-      (assert (contains? deck "A♠"))
-
-      (assert (contains? deck "6♦"))
-      (assert (contains? deck "7♦"))
-      (assert (contains? deck "8♦"))
-      (assert (contains? deck "9♦"))
-      (assert (contains? deck "10♦"))
-      (assert (contains? deck "J♦"))
-      (assert (contains? deck "Q♦"))
-      (assert (contains? deck "K♦"))
-      (assert (contains? deck "A♦"))
-
-      (assert (contains? deck "6♣"))
-      (assert (contains? deck "7♣"))
-      (assert (contains? deck "8♣"))
-      (assert (contains? deck "9♣"))
-      (assert (contains? deck "10♣"))
-      (assert (contains? deck "J♣"))
-      (assert (contains? deck "Q♣"))
-      (assert (contains? deck "K♣"))
-      (assert (contains? deck "A♣")))))
+      (assert-contains-suit deck :hearts)
+      (assert-contains-suit deck :diamonds)
+      (assert-contains-suit deck :spades)
+      (assert-contains-suit deck :clubs))))
