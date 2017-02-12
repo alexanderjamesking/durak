@@ -1,52 +1,32 @@
-(ns durak.game
-  (require
-    [durak.deck :refer [deck-symbols]]
-    [clojure.pprint :refer [pprint]]
-    ))
+(ns durak.game)
+
+(def cards-per-player 6)
+
+(defn move-trump-card-to-end [cards]
+  (conj (vec (rest cards)) (first cards)))
 
 (defn deal-cards [deck players]
-
-  (let [to-deal (take 12 deck)
-        remaining (drop 12 deck)
-        trump (take 1 remaining)
-    _ (println trump)
-        new-deck (conj (vec (drop 1 remaining)) trump)
-        _ (println (last new-deck))
-        deal-order (take 12 (cycle players))
-        dealt (mapv (fn [k v] [k v]) deal-order to-deal)
-        grouped (group-by (fn [e] (first e)) dealt)
-        myreducer (fn [acc i]
-                    (assoc acc i (map second (grouped i))))
-        res (reduce myreducer {} players)
-        out (conj res {:deck remaining :trump-suit :hearts})]
-
-
-    (println (deck-symbols deck))
-
-    (println "to deal: " (deck-symbols to-deal))
-
-
-    (println "a: " (deck-symbols (:a out)))
-    (println "b: " (deck-symbols (:b out)))
-    (println "remaining: " (deck-symbols remaining))
-    (println "trump: " trump)
-    (println (last new-deck))
-
-    (println (count new-deck))
-    (println (type new-deck))
-    (println (count (deck-symbols new-deck)))
-    (println (type (deck-symbols new-deck)))
-
-    (println "===")
-    (println (vec (deck-symbols new-deck)))
-    (println "===")
-    ;(println "new-deck: "  new-deck)
-
-    out
-    )
-  )
-
-
-; (defn p [i] (println (:key i)) (:key i))
-
-;(def x (mapv (fn [k v] { :key k :value v }) (take 12 (cycle #{:b :a})) to-deal))
+  "Deals 6 cards to each player, puts trump card to the end of the deck.
+  Returns a map containing deck, trump suit, player name -> cards
+  e.g.
+  {
+    :deck [ vector of cards]
+    :trump-suit :hearts
+    :player-a [ 6 cards ]
+    :player-b [ 6 cards ]
+  }
+  "
+  (let [num-cards-to-deal (* (count players) cards-per-player)
+        cards-to-deal (take num-cards-to-deal deck)
+        remaining (drop num-cards-to-deal deck)
+        trump-card (first remaining)
+        deck-remaining-after-dealing (move-trump-card-to-end remaining)
+        deal-order (take num-cards-to-deal (cycle players))
+        ; map deal-order with cards-to-deal to create a map of player to card
+        dealt (mapv (fn [k v] [k v]) deal-order cards-to-deal)
+        extract-player (fn [e] (first e))
+        grouped-by-player (group-by extract-player dealt)
+        extract-cards-for-player (fn [acc player] (assoc acc player (map second (grouped-by-player player))))
+        map-of-player-name-to-cards (reduce extract-cards-for-player {} players)]
+    (conj map-of-player-name-to-cards {:deck deck-remaining-after-dealing
+                                       :trump-suit (:suit trump-card)})))
