@@ -1,5 +1,5 @@
 (ns durak.deck-test
-  (:require [clojure.test :refer [deftest testing is]]
+  (:require [clojure.test :refer :all]
             [durak.deck :refer :all]))
 
 (defn assert-contains-suit [deck suit]
@@ -13,6 +13,17 @@
       (is (= :hearts (:suit card)))
       (is (= 12 (:value card)))))
 
+  (testing "build card from symbol"
+    (is (= (build-card :hearts 12) (symbol-tocard "Q♥")))
+    (is (= (build-card :diamonds 10) (symbol-tocard "10♦")))
+    (is (= (build-card :clubs 11) (symbol-tocard "J♣")))
+    (is (= (build-card :spades 13) (symbol-tocard "K♠")))
+    (is (= (build-card :spades 14) (symbol-tocard "A♠"))))
+
+  (testing "build card from symbol throws IllegalArgumentException for unknown suit"
+    (is (thrown? IllegalArgumentException (symbol-tocard "9X")))
+    (is (thrown? IllegalArgumentException (symbol-tocard "10%"))))
+
   (testing "card-symbol"
     (is (= "Q♥" (card-symbol (build-card :hearts 12))))
     (is (= "10♥" (card-symbol (build-card :hearts 10)))))
@@ -22,7 +33,7 @@
     (is (= "♠" (suit-symbol :spades)))
     (is (= "♦" (suit-symbol :diamonds)))
     (is (= "♣" (suit-symbol :clubs)))
-    (is (= nil (suit-symbol :unknown))))
+    (is (thrown? IllegalArgumentException (suit-symbol :unknown))))
 
   (testing "suit contains 9 cards"
     (let [diamonds (build-suit :diamonds)]
