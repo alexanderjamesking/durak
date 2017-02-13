@@ -18,7 +18,7 @@
     "Q" 12
     "K" 13
     "A" 14
-    (Integer/valueOf card-value)))
+    (read-string card-value)))
 
 (defn suit-symbol [card-suit]
   "Takes a card suit and returns its symbol, e.g. ♠ for :spades"
