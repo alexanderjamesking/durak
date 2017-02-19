@@ -4,24 +4,25 @@
    ; [clojure.test :refer :all]
     ))
 
-(println "IN STEP DEFS!!!")
 
-;(use 'cucumber.runtime.clj)
+(Given #"^the cards$" [arg1]
 
-;(use 'clojure.test)
+       (println arg1)
+       (println (type arg1))
 
-(Given #"^someone else is in the room$" []
-       ;(comment  Write code here that turns the phrase above into concrete actions  )
 
-       (println "1")
-       (assert (= 1 1))
 
        )
-;
-(When #"^I say hello$" []
-      (println "2")
+
+(Given #"^Boris is the attacker$" []
+       )
+
+(When #"^Boris attacks with the (\d+)♦$" [arg1]
+      (println "Boris attacks with " arg1)
       )
 
-(Then #"^they should say hello back to me!$" []
-      (println "3")
+(Then #"^Igor responds with the (\d+)♦$" [arg1]
+
+      (println "Igor responds with " arg1)
+
       )
