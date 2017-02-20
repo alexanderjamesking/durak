@@ -1,5 +1,5 @@
 (ns durak.game
-  (require [durak.deck :as deck]))
+  (:require [durak.deck :as deck]))
 
 (def cards-per-player 6)
 
