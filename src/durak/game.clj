@@ -1,6 +1,5 @@
 (ns durak.game
-  (require [durak.deck :as deck])
-  )
+  (require [durak.deck :as deck]))
 
 (def cards-per-player 6)
 
@@ -47,20 +46,15 @@
 
 (defn attack [player cards]
   "player - Attacker
-   cards - list of cards to attack with"
-  )
+   cards - list of cards to attack with")
 
 (defn defend [player cards]
   "player - Defender
-   cards - list of cards to defend with"
-  )
+   cards - list of cards to defend with")
 
-(defn end-attack [player]
-  )
+(defn end-attack [player])
 
-(defn pick-up [player]
-
-  )
+(defn pick-up [player])
 
 ; queries
 (defn get-trump-suit []

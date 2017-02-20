@@ -16,13 +16,7 @@
 (defn assert-trump-suit-defined []
   (assert (contains? deck/suits (game/get-trump-suit))))
 
-; start game
-; attack
-; defend
-; end attack
-; pick-up-field
-
-(deftest start-game-with-two-players
+(deftest start-game
 
   (start-a-game-with-two-players)
 
@@ -34,6 +28,10 @@
     (assert-trump-suit-defined))
 
   (testing "there are 24 cards left in the deck"
-    (assert-cards-in-deck 24))
+    (assert-cards-in-deck 24)))
 
-)
+; TODO
+; (deftest attack)
+; (deftest defend)
+; (deftest end-attack)
+; (deftest grab)
