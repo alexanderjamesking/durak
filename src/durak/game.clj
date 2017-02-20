@@ -1,4 +1,6 @@
-(ns durak.game)
+(ns durak.game
+  (require [durak.deck :as deck])
+  )
 
 (def cards-per-player 6)
 
@@ -30,3 +32,42 @@
         map-of-player-name-to-cards (reduce extract-cards-for-player {} players)]
     (conj map-of-player-name-to-cards {:deck deck-remaining-after-dealing
                                        :trump-suit (:suit trump-card)})))
+
+(def game-state (atom {}))
+
+; commands
+(defn start [players deck]
+  "Start the game
+    - deal cards
+    - pick trump card
+    - choose first attacker
+    - choose first defender"
+  (let [dealt-cards (deal-cards deck players)]
+    (reset! game-state dealt-cards)))
+
+(defn attack [player cards]
+  "player - Attacker
+   cards - list of cards to attack with"
+  )
+
+(defn defend [player cards]
+  "player - Defender
+   cards - list of cards to defend with"
+  )
+
+(defn end-attack [player]
+  )
+
+(defn pick-up [player]
+
+  )
+
+; queries
+(defn get-trump-suit []
+  (get @game-state :trump-suit))
+
+(defn get-cards [player]
+  (get @game-state player))
+
+(defn get-deck []
+  (get @game-state :deck))
