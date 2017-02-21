@@ -5,7 +5,13 @@
 
 (s/def ::suit #{:spades :hearts :diamonds :clubs})
 
+(defn suit? [suit]
+  (s/valid? ::suit suit))
+
 (s/def ::suit-sym #{"♠" "♥" "♦" "♣"})
+
+(defn suit-sym? [sym]
+  (s/valid? ::suit-sym sym))
 
 (defn value-symbol [card-value]
   "Takes a card value and returns its symbol, e.g. J for 11, Q for 12"
@@ -25,26 +31,32 @@
     "A" 14
     (read-string card-value)))
 
+(defn suit-sym? [sym]
+  (s/valid? ::suit-sym sym))
+
 (defn suit-symbol [card-suit]
-  {:pre [(s/valid? ::suit card-suit)]
-   :post [(s/valid? ::suit-sym %)]
-   }
+  {:pre  [(suit? card-suit)]
+   :post [suit-sym?]}
   "Takes a card suit and returns its symbol, e.g. ♠ for :spades"
   (case card-suit
     :spades "♠"
     :hearts "♥"
     :diamonds "♦"
-    :clubs "♣"
-    (throw (new IllegalArgumentException))))
+    :clubs "♣"))
+
+;(s/fdef suit-symbol
+;        :args suit?
+;        :ret suit-sym?)
 
 (defn symbol-suit [card-suit]
+  {:pre  [(suit-sym? card-suit)]
+   :post [suit?]}
   "Takes a card symbol and returns its suit, e.g. :spades for ♠"
   (case card-suit
     "♠" :spades
     "♥" :hearts
     "♦" :diamonds
-    "♣" :clubs
-    (throw (new IllegalArgumentException))))
+    "♣" :clubs))
 
 (defn build-card [suit value]
   {:suit suit :value value})

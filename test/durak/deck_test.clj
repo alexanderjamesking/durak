@@ -21,8 +21,8 @@
     (is (= (deck/build-card :spades 14) (deck/symbol-tocard "A♠"))))
 
   (testing "build card from symbol throws IllegalArgumentException for unknown suit"
-    (is (thrown? IllegalArgumentException (deck/symbol-tocard "9X")))
-    (is (thrown? IllegalArgumentException (deck/symbol-tocard "10%"))))
+    (is (thrown? AssertionError (deck/symbol-tocard "9X")))
+    (is (thrown? AssertionError (deck/symbol-tocard "10%"))))
 
   (testing "card-symbol"
     (is (= "Q♥" (deck/card-symbol (deck/build-card :hearts 12))))
