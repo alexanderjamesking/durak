@@ -33,7 +33,7 @@
     (is (= "♠" (deck/suit-symbol :spades)))
     (is (= "♦" (deck/suit-symbol :diamonds)))
     (is (= "♣" (deck/suit-symbol :clubs)))
-    (is (thrown? IllegalArgumentException (deck/suit-symbol :unknown))))
+    (is (thrown? AssertionError (deck/suit-symbol :unknown))))
 
   (testing "suit contains 9 cards"
     (let [diamonds (deck/build-suit :diamonds)]

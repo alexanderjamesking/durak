@@ -1,6 +1,11 @@
-(ns durak.deck)
+(ns durak.deck
+  (:require [clojure.spec :as s]))
 
 (def suits (set '(:spades :hearts :diamonds :clubs)))
+
+(s/def ::suit #{:spades :hearts :diamonds :clubs})
+
+(s/def ::suit-sym #{"♠" "♥" "♦" "♣"})
 
 (defn value-symbol [card-value]
   "Takes a card value and returns its symbol, e.g. J for 11, Q for 12"
@@ -21,6 +26,9 @@
     (read-string card-value)))
 
 (defn suit-symbol [card-suit]
+  {:pre [(s/valid? ::suit card-suit)]
+   :post [(s/valid? ::suit-sym %)]
+   }
   "Takes a card suit and returns its symbol, e.g. ♠ for :spades"
   (case card-suit
     :spades "♠"
